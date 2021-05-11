@@ -1,4 +1,4 @@
-# Radon Barcode - Content Based Image Retrieval (H1)
+# Radon Barcode - Content Based Image Retrieval
 
 ## Introduction
 The generation of a barcode to represent images has many practical applications, both in image representation as well as search queries based on an image. A Radon barcode is a type of barcode designed to represent the contents of an image in a simplified yet comprehensive form. This barcode can then be used to conduct searches based on an image, finding images that have been found to produce similar barcodes. The use of a barcode to conduct the search over other commonly used alternatives, such as those that look for commonly occurring shapes in the content of an image, can be advantageous due to the speed at which barcodes can be searched. 
