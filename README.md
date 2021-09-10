@@ -1,4 +1,4 @@
-# Radon Barcode - Content Based Image Retrieval Course Project
+# Radon Barcode - Content Based Image Retrieval
 
 Image search via Radon Barcode projections
 
@@ -13,18 +13,18 @@ search over other commonly used alternatives, such as those that look for
 commonly occurring shapes in the content of an image, can be advantageous due
 to the speed at which barcodes can be searched.
 
-## Dependencies
-'''
+# Dependencies
+```
 python 3.6
-'''
+```
 
 ## Setup
 1. Clone and enter the repository
 
-'''
+```
 $ git clone https://github.com/abbas-rizvi/RadonBarcode.git
 $ cd RadonBarcode
-'''
+```
 
 2. Extract MNIST dataset
 
@@ -33,11 +33,11 @@ Extract MNIST_DS.zip file into directory
 3. Install Requirements
 Install dependencies from requirements.txt using pip
 
-'''
+```
 $ pip install -r requirements.txt
-'''
+```
 4. Run radon.py
 
-'''
+```
 $ python radon.py
-'''
+```
