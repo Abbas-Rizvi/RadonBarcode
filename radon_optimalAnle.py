@@ -2,10 +2,11 @@
 import cv2
 import os
 import numpy as np
+import matplotlib.pyplot as plt
 
 
 # ------------------  Barcode Generation  ----------------------------------
-def generateBarcode(img):
+def generateBarcode(angleIn, img):
     # Creates several projections of image
     # Converts each projection to binary based on value of row
     # Creates one barcode representing results from each projection conversion
@@ -16,7 +17,7 @@ def generateBarcode(img):
 
 
     # Set projection angles interval
-    angleInterval = 8
+    angleInterval = angleIn
 
     for angle in range(0, 360, angleInterval):
         projections.append(rotateImage(img, angle))  # Add rotated img to projection list
@@ -50,7 +51,7 @@ def generateBarcode(img):
 
 
 # --------------------  Image Search  ------------------------------------
-def searchImage(searchCode, database):
+def searchImage(barcodes, testImg, searchCode, database):
     # Searches through list of barcodes to find index of most similar barcode
     # Displays the original and result to user
     # Determines if search was successful
@@ -107,30 +108,56 @@ def rotateImage(image, angle):
     return rotated
 
 
+def plot_Values(dict_SuccesRates):
+    succesList = dict_SuccesRates.items()
+    succesList = sorted(succesList) 
+
+    x, y = zip(*succesList) 
+
+    plt.plot(x, y)
+    plt.show()
+    plt.savefig('succes_rates.png')
+
+
+
 # --------------------  Main   ----------------------------------------
 
-# Creates list of all files in search database
-path = "MNIST_DS/"
-dirs = os.listdir(path)
+def runProgram(interval):
+    # Creates list of all files in search database
+    path = "MNIST_DS/"
+    dirs = os.listdir(path)
 
-allFiles = []
+    allFiles = []
 
-for folder in dirs:
-    subFolder = path + folder
-    for file in os.listdir(subFolder):
-        allFiles.append(subFolder + '/' + file)
+    for folder in dirs:
+        subFolder = path + folder
+        for file in os.listdir(subFolder):
+            allFiles.append(subFolder + '/' + file)
 
-# generate a barcode for each file
-barcodes = []
-for i in range(len(allFiles)):  # For each file
-    barcodes.append(generateBarcode(allFiles[i]))  # add the generated barcode to list of barcodes
+    # generate a barcode for each file
+    barcodes = []
+    for i in range(len(allFiles)):  # For each file
+        barcodes.append(generateBarcode(interval, allFiles[i]))  # add the generated barcode to list of barcodes
 
-success = 0  # Initialize success
+    success = 0  # Initialize success
 
-# For each image in file list
-for testImg in allFiles:
-    testCode = generateBarcode(testImg)  # generate barcode for image
+    # For each image in file list
+    for testImg in allFiles:
+        testCode = generateBarcode(interval, testImg)  # generate barcode for image
 
-    success += searchImage(testCode, allFiles)  # Search barcode, increment success if search is correct
+        success += searchImage(barcodes, testImg, testCode, allFiles)  # Search barcode, increment success if search is correct
 
-print("success rate: ", success, "%")  # output success rate
+    print("Projection Angle: ", interval, "Success Rate: ", success, "%")  # output success rate
+    return success
+
+success = {}
+
+for angle in range (1,180,8):
+    success[angle] = runProgram(angle)
+
+
+print(max(success, key=success.get))
+
+
+plot_Values(success)
+    
