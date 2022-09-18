@@ -14,6 +14,11 @@ search over other commonly used alternatives, such as those that look for
 commonly occurring shapes in the content of an image, can be advantageous due
 to the speed at which barcodes can be searched.
 
+## Team members
+- Abbas Rizvi
+- MohammadHamza Asif
+- Shahzabe Mahmood
+- Jad Eletry
 
 ## Functionality
 
